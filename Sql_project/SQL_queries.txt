@@ -1,0 +1,51 @@
+> Ques 1: Which cities has the best Customers?
+
+SELECT c.city,
+  SUM(i.Total) as Invoices
+FROM Customer c
+LEFT OUTER JOIN Invoice i
+  ON i.customerId = c.customerId
+GROUP by c.city
+ORDER by invoices desc
+LIMIT 10;
+
+
+> Ques 2: Top 5 genre with most number of songs?
+
+SELECT g.name as Genre, 
+  count(t.TrackId) as Total_Song
+from track t
+  left OUTER JOIN Genre g
+on t.GenreId=g.GenreId
+GROUP by g.Name
+ORDER by Total_song DESC
+limit 5;
+
+
+> Ques 3: Top 5 Rock Artist.
+
+SELECT
+  ar.Name,
+  COUNT(Ar.ArtistId) AS Songs
+FROM Artist ar
+JOIN Album al
+  ON Ar.ArtistId = Al.ArtistId
+JOIN Track t
+  ON Al.AlbumId = T.AlbumId
+JOIN Genre g
+  ON T.GenreId = G.GenreId
+WHERE G.Name = 'Rock'
+GROUP BY Ar.Name
+ORDER BY Songs DESC
+LIMIT 5;
+
+
+> Ques 4: What is the percentage of customers (by country)? 
+
+SELECT BillingCountry,
+  count(Invoiceid)as NetInvoices
+From Invoice i
+LEFT OUTER JOIN Customer c
+  ON i.CustomerId = c.CustomerId
+GROUP BY BillingCountry
+ORDER BY NetInvoices DESC;
